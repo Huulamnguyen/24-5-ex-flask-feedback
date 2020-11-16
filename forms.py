@@ -18,3 +18,11 @@ class UserForm(FlaskForm):
 
     last_name = StringField("Last Name", validators=[InputRequired(), Length(
         min=0, max=50, message="Maximum 50 characters")])
+
+
+# TODO: LOGIN FORM
+class LoginForm(FlaskForm):
+    username = StringField("Username", validators=[InputRequired(), Length(
+        min=0, max=20, message="Maximum 20 characters")])
+
+    password = PasswordField("Password", validators=[InputRequired()])

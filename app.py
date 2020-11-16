@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from models import connect_db, db, User
-from forms import UserForm
+from forms import UserForm, LoginForm
 from sqlalchemy.exc import IntegrityError
 
 app = Flask(__name__)
@@ -58,7 +58,7 @@ def register_user():
 # TODO: LOGIN ROUTE
 @app.route("/login", methods=["GET", "POST"])
 def login_user():
-    form = UserForm()
+    form = LoginForm()
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
