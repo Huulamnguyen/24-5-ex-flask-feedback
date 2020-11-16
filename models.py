@@ -36,7 +36,7 @@ class User(db.Model):
 
     # TODO: AUTHENTICATE METHOD, WHEN USER INPUT PASSWORD FROM FORM AND COMPARE IT TO DATABASE
     @classmethod
-    def authenticate(cls, username, pwd, email, first_name, last_name):
+    def authenticate(cls, username, pwd):
         """Validate that user exists & password is correct.
             Return user if valid; else return False.
         """

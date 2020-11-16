@@ -4,6 +4,29 @@
 
 {% block content %}
 
-<h1>Register Form</h1>
-
+<div class="card w-50 mx-auto">
+    <div class="card-header bg-success text-white">
+        <h1 class="text-center">Register Form</h1>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+    
+            {% for field in form
+                if field.widget.input_type != 'hidden' %}
+            <p>
+                {{ field.label }}
+                {{ field(class_="form-control") }}
+            
+                {% for error in field.errors %}
+                <span class="form-text text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+            {% endfor %}
+    
+            <button class="btn btn-success btn-block" type="submit">Register</button>
+    
+        </form>
+    </div> 
+</div>
 {% endblock %}

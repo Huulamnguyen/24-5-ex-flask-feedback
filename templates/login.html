@@ -1,0 +1,25 @@
+{% extends 'base.html'  %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="card w-50 mx-auto">
+    <div class="card-header bg-success text-white">
+        <h1 class="text-center">Login</h1>
+    </div>
+
+    <div class="card-body">
+        <form class="form-group" method="POST">
+            {{form.username.label}}
+            {{form.username(class_="form-control")}}
+
+            {{form.password.label(class_="mt-3")}}
+            {{form.password(class_="form-control")}}
+            <button class="btn  btn-success  btn-block mt-3">Login</button>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
