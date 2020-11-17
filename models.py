@@ -24,10 +24,10 @@ class User(db.Model):
 
     # TODO: REGISTER METHOD, CREATE NEW USERNAME AND PASSWORD THEN STORE IT AT DATABASE
     @classmethod
-    def register(cls, username, pwd, email, first_name, last_name):
+    def register(cls, username, password, email, first_name, last_name):
         """Register user w/hashed password & return user."""
 
-        hashed = bcrypt.generate_password_hash(pwd)
+        hashed = bcrypt.generate_password_hash(password)
         # * turn bytestring into normal (unicode utf8) string
         hashed_utf8 = hashed.decode("utf8")
 
@@ -36,12 +36,12 @@ class User(db.Model):
 
     # TODO: AUTHENTICATE METHOD, WHEN USER INPUT PASSWORD FROM FORM AND COMPARE IT TO DATABASE
     @classmethod
-    def authenticate(cls, username, pwd):
+    def authenticate(cls, username, password):
         """Validate that user exists & password is correct.
             Return user if valid; else return False.
         """
         u = User.query.filter_by(username=username).first()
-        if u and bcrypt.check_password_hash(u.password, pwd):
+        if u and bcrypt.check_password_hash(u.password, password):
             # * return user instance
             return u
         else:

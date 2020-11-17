@@ -58,7 +58,12 @@ def register_user():
 # TODO: LOGIN ROUTE
 @app.route("/login", methods=["GET", "POST"])
 def login_user():
+
+    if "user_name" in session:
+        return redirect('/secret')
+
     form = LoginForm()
+
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
@@ -71,6 +76,7 @@ def login_user():
         else:
             # todo: display errors if apply
             form.username.errors = ["Invalid username/password."]
+            return render_template("login.html", form=form)
 
     return render_template("login.html", form=form)
 
@@ -78,6 +84,7 @@ def login_user():
 # TODO: LOG OUT ROUTE
 @app.route("/logout")
 def logout_user():
+    """ Log out Route """
     # todo: remove session
     session.pop("user_name")
     flash("Goodbye!", "info")

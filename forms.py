@@ -23,6 +23,6 @@ class UserForm(FlaskForm):
 # TODO: LOGIN FORM
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired(), Length(
-        min=0, max=20, message="Maximum 20 characters")])
+        min=1, max=20, message="Maximum 20 characters")])
 
     password = PasswordField("Password", validators=[InputRequired()])
