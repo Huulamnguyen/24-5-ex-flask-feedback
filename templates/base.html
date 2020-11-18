@@ -12,9 +12,12 @@
      <!-- TODO: NAVBAR -->
     <nav class="navbar navbar-light bg-success justify-content-between">
         <div class="container" style="font-family:'Nunito', sans-serif;">
-            <a href="/" class="navbar-brand text-white">Your Feedback</a>
+            <a href="/login" class="navbar-brand text-white">Your Feedback</a>
             <ul class="nav navbar-nav flex-row float-right">
-                {% if session['user_name']  %}
+                {% if session['user_name'] %}
+                <li class="nav-item">
+                    <a class="nav-link pr-3 text-white" href="/secret">Hello, {{session['user_name']}}</a>
+                </li>
                 <li class="nav-item">
                 <a class="nav-link pr-3 text-white" href="/logout">Logout</a>
                 </li>

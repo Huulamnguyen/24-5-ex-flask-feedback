@@ -33,12 +33,10 @@ def register_user():
         email = form.email.data
         first_name = form.first_name.data
         last_name = form.last_name.data
-
         # todo: add new user to users database
         new_user = User.register(
             username, password, email, first_name, last_name)
         db.session.add(new_user)
-
         # todo: because username is unique, it wil raise errors.
         # todo: this try to catch error and redirect to register form.
         try:
@@ -46,38 +44,31 @@ def register_user():
         except IntegrityError:
             form.username.errors.append("Username taken.  Please pick another")
             return render_template("register.html", form=form)
-
         # todo: create session to remember when user login
         session["user_name"] = new_user.username
         flash("Welcome! Successfully Created Your Account!", "success")
-        return redirect('/secret')
-
+        return redirect(f'/users/{new_user.username}')
     return render_template("register.html", form=form)
 
 
 # TODO: LOGIN ROUTE
 @app.route("/login", methods=["GET", "POST"])
 def login_user():
-
     if "user_name" in session:
-        return redirect('/secret')
-
+        return redirect(f"/user/{session['username']}")
     form = LoginForm()
-
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-
         user = User.authenticate(username, password)
         if user:
             flash(f"Welcome Back, {user.username}!", "primary")
             session["user_name"] = user.username
-            return redirect("/secret")
+            return redirect(f"/users/{user.username}")
         else:
             # todo: display errors if apply
             form.username.errors = ["Invalid username/password."]
             return render_template("login.html", form=form)
-
     return render_template("login.html", form=form)
 
 
@@ -91,11 +82,16 @@ def logout_user():
     return redirect("/")
 
 
-# TODO: SECRET ROUTE
-@app.route("/secret", methods=["GET", "POST"])
-def show_secret():
-    if "user_name" not in session:
+# TODO: User/usernames route
+@app.route("/users/<username>", methods=["GET", "POST"])
+def show_user(username):
+    """ Show logged-in-user information"""
+
+    # todo: If user is not in session, it will redirect to root route
+    if "user_name" not in session or username != session['user_name']:
         flash("Please login first!", "danger")
         return redirect("/")
 
-    return render_template("secret.html")
+    # todo: get user's info
+    user = User.query.get(username)
+    return render_template("user.html", user=user)

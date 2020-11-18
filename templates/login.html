@@ -11,12 +11,22 @@
 
     <div class="card-body">
         <form method="POST">
-            {{form.username.label}}
-            {{form.username(class_="form-control")}}
-
-            {{form.password.label(class_="mt-3")}}
-            {{form.password(class_="form-control")}}
-            <button class="btn btn-success btn-block mt-3">Login</button>
+            {{ form.hidden_tag() }}
+    
+            {% for field in form
+                if field.widget.input_type != 'hidden' %}
+            <p>
+                {{ field.label }}
+                {{ field(class_="form-control") }}
+            
+                {% for error in field.errors %}
+                <span class="form-text text-danger">{{ error }}</span>
+                {% endfor %}
+            </p>
+            {% endfor %}
+    
+            <button class="btn btn-success btn-block" type="submit">Login</button>
+    
         </form>
     </div>
 
