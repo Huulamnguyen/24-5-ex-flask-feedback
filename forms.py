@@ -20,9 +20,36 @@ class UserForm(FlaskForm):
         min=0, max=50, message="Maximum 50 characters")])
 
 
+# TODO: EDIT USER FORM
+class EditUserForm(FlaskForm):
+    email = StringField("Email", validators=[
+                        InputRequired(), Email(message="Invalid email address"), Length(min=0, max=50, message="Maximum 50 characters")])
+
+    first_name = StringField("First Name", validators=[InputRequired(), Length(
+        min=0, max=50, message="Maximum 50 characters")])
+
+    last_name = StringField("Last Name", validators=[InputRequired(), Length(
+        min=0, max=50, message="Maximum 50 characters")])
+
+
 # TODO: LOGIN FORM
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired(), Length(
         min=1, max=20, message="Maximum 20 characters")])
 
     password = PasswordField("Password", validators=[InputRequired()])
+
+# TODO: FEEDBACK FORM
+
+
+class FeedbackForm(FlaskForm):
+    """Add feedback form."""
+
+    title = StringField(
+        "Title",
+        validators=[InputRequired(), Length(max=100)],
+    )
+    content = StringField(
+        "Content",
+        validators=[InputRequired()],
+    )
